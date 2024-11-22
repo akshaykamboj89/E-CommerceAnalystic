@@ -4,6 +4,7 @@ const Product = require('../models/Product');
 const Order = require('../models/Order');
 require('dotenv').config();
 const connectDB = require('../config/db');
+const bcrypt = require('bcrypt');
 
 connectDB();
 
@@ -14,8 +15,8 @@ const seedData = async () => {
         await Order.deleteMany();
 
         const users = await User.insertMany([
-            { name: 'John Doe', email: 'john@example.com', age: 25 },
-            { name: 'Jane Smith', email: 'jane@example.com', age: 30 },
+            { name: 'John Doe', email: 'john@example.com', password: await bcrypt.hash('password123', 10), age: 25 },
+            { name: 'Jane Smith', email: 'jane@example.com',password: await bcrypt.hash('password456', 10), age: 30 },
         ]);
 
         const products = await Product.insertMany([

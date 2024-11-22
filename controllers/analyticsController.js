@@ -1,6 +1,7 @@
 const Order = require('../models/Order');
 const Product = require('../models/Product');
 
+// Get sales by category
 exports.getSalesByCategory = async (req, res) => {
     try {
         const sales = await Order.aggregate([
@@ -27,6 +28,7 @@ exports.getSalesByCategory = async (req, res) => {
     }
 };
 
+// Get top customers
 exports.getTopCustomers = async (req, res) => {
     try {
         const customers = await Order.aggregate([
@@ -44,6 +46,8 @@ exports.getTopCustomers = async (req, res) => {
         res.status(500).json({ error: err.message });
     }
 };
+
+// Get monthly sales
 exports.getMonthlySales = async (req, res) => {
     try {
         const sales = await Order.aggregate([
@@ -53,13 +57,16 @@ exports.getMonthlySales = async (req, res) => {
                     totalRevenue: { $sum: '$totalAmount' },
                 },
             },
+            { $sort: { '_id': 1 } },
         ]);
         res.status(200).json(sales);
     } catch (err) {
         res.status(500).json({ error: err.message });
     }
 };
-exports.getLowStockProducts = async (req, res) => {
+
+// Get low stock products
+exports.getLowStock = async (req, res) => {
     try {
         const products = await Product.find({ stock: { $lt: 10 } });
         res.status(200).json(products);
