@@ -29,7 +29,6 @@ JWT_SECRET=12345
 
 . Scripts to run :
 npm start: Start the server
-npm run seed: Populate the database with sample data
 
 . API Documentation:
 Authentication Endpoints
@@ -42,12 +41,20 @@ GET /analytics/sales-by-category/authenticateAdmin - Get sales data grouped by p
 GET /analytics/top-customers/authenticateAdmin - Retrieve the top 5 customers by spending
 GET /analytics/monthly-sales/authenticateAdmin - View monthly revenue statistics
 GET /analytics/low-stock/authenticateAdmin- Fetch a list of products with stock below 10
+
+Order placed byuser
+
+POST("/", authenticateUser, createOrder)
+GET('/:userId', authenticateUser, getAllOrders)
+
+
 Product Management Endpoints
 POST /products/add/authenticateAdmin - Add a new product to the inventory
 DELETE /products/delete/:id/authenticateAdmin - Remove a product by its ID
 GET('/', authenticateAdmin, getAllProducts)
 User Endpoints
 router.get('/', authenticateAdmin, getAllUsers);
+
 
 
 
