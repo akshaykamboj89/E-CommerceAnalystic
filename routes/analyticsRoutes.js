@@ -3,16 +3,15 @@ const {
     getSalesByCategory,
     getTopCustomers,
     getMonthlySales,
-    getLowStock, 
+    getLowStock,
 } = require('../controllers/analyticsController');
-
-const { authenticateUser } = require('../middlewares/authMiddleware');
+const { authenticateAdmin } = require('../middlewares/adminMiddleware');
 
 const router = express.Router();
 
-router.get('/sales-by-category', authenticateUser, getSalesByCategory);
-router.get('/top-customers', authenticateUser, getTopCustomers);   
-router.get('/monthly-sales', authenticateUser, getMonthlySales);
-router.get('/low-stock', authenticateUser, getLowStock);
+router.get('/sales-by-category', authenticateAdmin, getSalesByCategory);
+router.get('/top-customers', authenticateAdmin, getTopCustomers);
+router.get('/monthly-sales', authenticateAdmin, getMonthlySales);
+router.get('/low-stock', authenticateAdmin, getLowStock);
 
-module.exports = router;   
+module.exports = router;

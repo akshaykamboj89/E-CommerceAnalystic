@@ -1,0 +1,347 @@
+{
+	"info": {
+		"_postman_id": "d55706d9-7471-4768-b232-c8e8e1b2a88a",
+		"name": "E-commerce",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "37516909"
+	},
+	"item": [
+		{
+			"name": "adminRegistered",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Rajeev\",\r\n    \"email\": \"rajeev@gmail.com.com\",\r\n    \"password\": \"admin@1234\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/admin/register-admin",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"admin",
+						"register-admin"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "loginAdmin",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": \"rajeev@gmail.com.com\",\r\n    \"password\": \"admin@1234\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/admin/login-admin",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"admin",
+						"login-admin"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "totalSales",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3NDViZTQxMzJiNzE3NzdlMzkxZDg3NyIsImlhdCI6MTczMjYyNDAwMywiZXhwIjoxNzMyNjI3NjAzfQ.CKZ8IVP8uef6KUNZGn3KBGYwkp6BVQnfgQuIJHUiUYA",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5000/analytics/sales-by-category",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"analytics",
+						"sales-by-category"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "topCustomers",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3NDViZTQxMzJiNzE3NzdlMzkxZDg3NyIsImlhdCI6MTczMjYyNDAwMywiZXhwIjoxNzMyNjI3NjAzfQ.CKZ8IVP8uef6KUNZGn3KBGYwkp6BVQnfgQuIJHUiUYA",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5000/analytics/top-customers",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"analytics",
+						"top-customers"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "monthySales",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3NDViZTQxMzJiNzE3NzdlMzkxZDg3NyIsImlhdCI6MTczMjYyNDAwMywiZXhwIjoxNzMyNjI3NjAzfQ.CKZ8IVP8uef6KUNZGn3KBGYwkp6BVQnfgQuIJHUiUYA",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5000/analytics/monthly-sales",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"analytics",
+						"monthly-sales"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "lowStock",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3NDViZTQxMzJiNzE3NzdlMzkxZDg3NyIsImlhdCI6MTczMjYyNDAwMywiZXhwIjoxNzMyNjI3NjAzfQ.CKZ8IVP8uef6KUNZGn3KBGYwkp6BVQnfgQuIJHUiUYA",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5000/analytics/low-stock",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"analytics",
+						"low-stock"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "addProduct",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "deleteProduct",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "getAllProducts",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "getAllUsers",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "userRegisterd",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Sandeep\",\r\n    \"email\": \"sandeep@gmail.com\",\r\n    \"password\": \"123456\",\r\n    \"age\": 25\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/auth/registerUser",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"auth",
+						"registerUser"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "loginuser",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": \"sandeep@gmail.com\",\r\n    \"password\": \"123456\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/auth/loginUser",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"auth",
+						"loginUser"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "createOrder",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3NDVjMzk0MzJiNzE3NzdlMzkxZDg4YyIsImlhdCI6MTczMjYyNTM3MywiZXhwIjoxNzMyNjI4OTczfQ.iXt70Nu4Fk7hinxNa9_mO7AhKILl7F7WJUGYIutOwzU",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Sandeep\",\r\n    \"email\": \"sandeep@example.com\",\r\n    \"password\": \"123456\",\r\n    \"products\": [\r\n        {\r\n            \"productId\": \"67455b727c89d6023c7264eb\",\r\n            \"quantity\": 4\r\n        },\r\n        {\r\n            \"productId\": \"6745639e2bdaa966da529439\",\r\n            \"quantity\": 4\r\n        }\r\n    ]\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/orders/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"orders",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getAllOrders",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3NDVjMzk0MzJiNzE3NzdlMzkxZDg4YyIsImlhdCI6MTczMjYyNTM3MywiZXhwIjoxNzMyNjI4OTczfQ.iXt70Nu4Fk7hinxNa9_mO7AhKILl7F7WJUGYIutOwzU",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5000/orders/6745c5cc32b71777e391d890",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"orders",
+						"6745c5cc32b71777e391d890"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

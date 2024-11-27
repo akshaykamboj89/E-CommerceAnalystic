@@ -68,8 +68,25 @@ exports.getMonthlySales = async (req, res) => {
 // Get low stock products
 exports.getLowStock = async (req, res) => {
     try {
-        const products = await Product.find({ stock: { $lt: 10 } });
-        res.status(200).json(products);
+        const lowStockThreshold = 10; // Define low stock threshold
+        const products = await Product.find({ stock: { $lt: lowStockThreshold } });
+        
+        // Check if there are low-stock products
+        if (products.length === 0) {
+            return res.status(200).json({
+                message: "No products are below the low-stock threshold.",
+                lowStockThreshold,
+                products: [],
+            });
+        }
+
+        // If products are found, return them
+        res.status(200).json({
+            message: "Low stock products retrieved successfully.",
+            lowStockThreshold,
+            totalLowStock: products.length,
+            products,
+        });
     } catch (err) {
         res.status(500).json({ error: err.message });
     }

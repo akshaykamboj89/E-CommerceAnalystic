@@ -1,10 +1,20 @@
+const User = require('../models/User');
 const Order = require('../models/Order');
 
-exports.getUserOrderHistory = async (req, res) => {
+exports.getAllUsers = async (req, res) => {
     try {
-        const orders = await Order.find({ userId: req.params.id }).populate('products.productId');
-        res.status(200).json(orders);
+        const users = await User.find();
+        res.status(200).json(users);
     } catch (err) {
         res.status(500).json({ error: err.message });
     }
 };
+
+// exports.getUserOrders = async (req, res) => {
+    // try {
+        // const orders = await Order.find({ userId: req.params.userId }).populate('products.productId');
+        // res.status(200).json(orders);
+    // } catch (err) {
+        // res.status(500).json({ error: err.message });
+    // }
+// };

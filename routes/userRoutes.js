@@ -1,7 +1,13 @@
 const express = require('express');
-const router = express.Router();
-const { getUserOrderHistory } = require('../controllers/userController');
+const { getAllUsers } = require('../controllers/userController');
+const { authenticateAdmin } = require('../middlewares/adminMiddleware');
 
-router.get('/:id/order-history', getUserOrderHistory);
+const router = express.Router();
+
+router.get('/', authenticateAdmin, getAllUsers);
+
+
+
+// router.get('/:userId/orders', authenticateAdmin, getUserOrders);
 
 module.exports = router;

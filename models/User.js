@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const bcrypt = require('bcrypt');
 
 const userSchema = new mongoose.Schema({
     name: String,
@@ -7,5 +8,6 @@ const userSchema = new mongoose.Schema({
     age: Number,
     createdAt: { type: Date, default: Date.now },
 });
+
 
 module.exports = mongoose.model('User', userSchema);
