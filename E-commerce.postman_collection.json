@@ -344,7 +344,7 @@
 			"response": []
 		},
 		{
-			"name": "user2",
+			"name": "loginUser2",
 			"request": {
 				"method": "GET",
 				"header": []
@@ -352,7 +352,7 @@
 			"response": []
 		},
 		{
-			"name": "loginUser2",
+			"name": "user2",
 			"request": {
 				"method": "GET",
 				"header": []

@@ -67,9 +67,69 @@ exports.getMonthlySales = async (req, res) => {
 };
 
 // Get low stock products and send email to adminds,
+exports.getLowStock = async (req, res) => {
+    try {
+        const lowStockThreshold = 10; // Define low stock threshold
+        const products = await Product.find({ stock: { $lt: lowStockThreshold } });
+
+        //Check if there are low-stock products
+        if (products.length === 0) {
+            return res.status(200).json({
+                message: "No products are below the low-stock threshold.",
+                lowStockThreshold,
+                totalLowStock: 0,
+                products: [],
+            });
+        }
+
+       // Prepare product details for the email
+        const productDetails = products
+            .map(product => `Product Name: ${product.name}, Stock: ${product.stock}`)
+            .join('\n');
+
+        const emailText = `
+        Dear Admin,
+
+        The following products are in low stock:
+
+        ${productDetails}
+
+        Please restock them soon.
+
+        Regards,
+        Inventory Management Team
+        `;
+
+        //Send email to admin
+        await sendEmail(process.env.ADMIN_EMAIL, 'Low Stock Alert', emailText);
+
+        //Simplify product details for the response
+        const simplifiedProducts = products.map(product => ({
+            name: product.name,
+            stock: product.stock,
+        })); 
+
+        res.status(200).json({
+            message: "Low stock products retrieved and email sent to admin successfully.",
+            lowStockThreshold,
+            totalLowStock: simplifiedProducts.length,
+            products: simplifiedProducts,
+        });
+    } catch (err) {
+        console.error('Error fetching low stock products:', err.message);
+        res.status(500).json({ error: err.message });
+    }
+};
+
+
+
+
+
 // exports.getLowStock = async (req, res) => {
     // try {
-        // const lowStockThreshold = 10; // Define low stock threshold
+        // const lowStockThreshold = 10;
+// 
+        // 
         // const products = await Product.find({ stock: { $lt: lowStockThreshold } });
 // 
         // Check if there are low-stock products
@@ -77,74 +137,20 @@ exports.getMonthlySales = async (req, res) => {
             // return res.status(200).json({
                 // message: "No products are below the low-stock threshold.",
                 // lowStockThreshold,
-                // totalLowStock: 0,
-                // products: [],
+                // products: [], // Return an empty array
             // });
         // }
 // 
-        // Prepare product details for the email
-        // const productDetails = products
-            // .map(product => `Product Name: ${product.name}, Stock: ${product.stock}`)
-            // .join('\n');
-// 
-        // const emailText = `
-        // Dear Admin,
-// 
-        // The following products are in low stock:
-// 
-        // ${productDetails}
-// 
-        // Please restock them soon.
-// 
-        // Regards,
-        // Inventory Management Team
-        // `;
-// 
-        // Send email to admin
-        // await sendEmail(process.env.ADMIN_EMAIL, 'Low Stock Alert', emailText);
-// 
-        // Simplify product details for the response
-        // const simplifiedProducts = products.map(product => ({
-            // name: product.name,
-            // stock: product.stock,
-        // }));
-// 
+    // 
         // res.status(200).json({
-            // message: "Low stock products retrieved and email sent to admin successfully.",
+            // message: "Low stock products retrieved successfully.",
             // lowStockThreshold,
-            // totalLowStock: simplifiedProducts.length,
-            // products: simplifiedProducts,
+            // totalLowStock: products.length,
+            // products, 
         // });
     // } catch (err) {
-        // console.error('Error fetching low stock products:', err.message);
+        // 
         // res.status(500).json({ error: err.message });
     // }
 // };
-exports.getLowStock = async (req, res) => {
-    try {
-        const lowStockThreshold = 10;
-
-        
-        const products = await Product.find({ stock: { $lt: lowStockThreshold } });
-
-        // Check if there are low-stock products
-        if (products.length === 0) {
-            return res.status(200).json({
-                message: "No products are below the low-stock threshold.",
-                lowStockThreshold,
-                products: [], // Return an empty array
-            });
-        }
-
-    
-        res.status(200).json({
-            message: "Low stock products retrieved successfully.",
-            lowStockThreshold,
-            totalLowStock: products.length,
-            products, 
-        });
-    } catch (err) {
-        
-        res.status(500).json({ error: err.message });
-    }
-};
+// 
