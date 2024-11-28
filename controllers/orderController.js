@@ -35,48 +35,88 @@
 //         res.status(500).json({ error: err.message });
 //     }
 // };
-const User = require('../models/User'); 
-const Order = require('../models/Order'); 
+const jwt = require('jsonwebtoken');
+const Order = require('../models/Order');
+const User = require('../models/User');
+const { sendEmail } = require('../services/emailService');
 
-// Create a new order
 exports.createOrder = async (req, res) => {
     try {
-        const { name, email, password, products } = req.body;
+        const { products } = req.body;
 
-        
-        let user = await User.findOne({ email });
-        
+        // Validate input: Products must be a non-empty array
+        if (!Array.isArray(products) || products.length === 0) {
+            return res.status(400).json({ message: "Products are required and should be a non-empty array." });
+        }
+
+        // Extract token from the Authorization header
+        const token = req.headers.authorization?.split(" ")[1];
+        if (!token) {
+            return res.status(401).json({ message: "Authentication token is required." });
+        }
+
+        // Verify token and extract user details
+        let decodedUser;
+        try {
+            decodedUser = jwt.verify(token, process.env.JWT_SECRET);
+        } catch (err) {
+            return res.status(401).json({ message: "Invalid or expired token." });
+        }
+
+        // Find the user from the database using decoded user ID
+        const user = await User.findById(decodedUser.id);
         if (!user) {
-            
-            user = new User({
-                name,
-                email,
-                password, 
-            });
-
-            await user.save();
+            return res.status(404).json({ message: "User not found." });
         }
 
-        
-        if (!products || products.length === 0) {
-            return res.status(400).json({ message: "Products are required to create an order" });
-        }
-
-    
+        // Create the order for the logged-in user
         const newOrder = new Order({
-            userId: user._id, 
-            products
+            userId: user._id,
+            products,
         });
 
         await newOrder.save();
+        console.log(`Order created successfully for user: ${user.email}`);
 
-        res.status(201).json({ message: "Order created successfully", order: newOrder });
+        let emailStatus = "Email sent successfully";
+
+        // Send email to the logged-in user
+        try {
+            const emailText = `
+                Dear ${user.name},
+
+                Your order has been successfully placed. 
+                Order ID: ${newOrder._id}
+
+                Thank you for shopping with us!
+
+                Regards,
+                E-Commerce Team
+            `;
+            await sendEmail(user.email, "Order Placed Successfully", emailText);
+            console.log(`Email sent to ${user.email}`);
+        } catch (err) {
+            emailStatus = `Failed to send email: ${err.message}`;
+            console.error(`Error sending email to ${user.email}: ${err.message}`);
+        }
+
+        // Respond to the client
+        res.status(201).json({
+            message: "Order created successfully",
+            order: newOrder,
+            emailStatus,
+        });
     } catch (err) {
-        res.status(500).json({ error: err.message });
+        console.error("Error in createOrder function:", err.message);
+        res.status(500).json({
+            message: "An error occurred while creating the order.",
+            error: err.message,
+        });
     }
 };
 
-// Get all orders for the authenticated user
+
+//Get all orders for the authenticated user
 exports.getAllOrders = async (req, res) => {
     try {
         // Get the userId from the URL params (e.g., /api/orders/:userId)
@@ -100,5 +140,3 @@ exports.getAllOrders = async (req, res) => {
         res.status(500).json({ error: err.message });
     }
 };
-
-
