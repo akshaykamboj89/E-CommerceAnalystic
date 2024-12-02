@@ -187,8 +187,80 @@
 		{
 			"name": "addProduct",
 			"request": {
-				"method": "GET",
-				"header": []
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3NDcwYjJhZDJjODQ0NWMyNTg5YjY5NiIsImlhdCI6MTczMjg4MTA5NSwiZXhwIjoxNzMyODg0Njk1fQ.IWnBzSh0Ys0OtBwks4OQJvnfksr3Nn5KAzb5nToPst0",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "name",
+							"value": "Mouse",
+							"type": "text"
+						},
+						{
+							"key": "description",
+							"value": "A sample product description",
+							"type": "text"
+						},
+						{
+							"key": "price",
+							"value": "400",
+							"type": "text"
+						},
+						{
+							"key": "stock",
+							"value": "10",
+							"type": "text"
+						},
+						{
+							"key": "images",
+							"type": "file",
+							"src": "/C:/Users/aksha/Downloads/Rectangle 6382 (32).png"
+						},
+						{
+							"key": "images",
+							"type": "file",
+							"src": "/C:/Users/aksha/Downloads/Rectangle 6382 - 2024-11-13T174911.232.png"
+						},
+						{
+							"key": "images",
+							"type": "file",
+							"src": "/C:/Users/aksha/Downloads/Rectangle 6382 (53).png"
+						},
+						{
+							"key": "images",
+							"type": "file",
+							"src": "/C:/Users/aksha/Downloads/Rectangle 6382 (18).png"
+						},
+						{
+							"key": "category",
+							"value": "Electronics",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:5000/products/add",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"products",
+						"add"
+					]
+				}
 			},
 			"response": []
 		},
@@ -346,16 +418,136 @@
 		{
 			"name": "loginUser2",
 			"request": {
-				"method": "GET",
-				"header": []
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": \"anupdattana@gmail.com\",\r\n    \"password\": \"123\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/auth/loginUser",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"auth",
+						"loginUser"
+					]
+				}
 			},
 			"response": []
 		},
 		{
-			"name": "user2",
+			"name": "registeredUser2",
 			"request": {
-				"method": "GET",
-				"header": []
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Anup\",\r\n    \"email\": \"anupdattana@gmail.com\",\r\n    \"password\": \"123\",\r\n    \"age\": 25\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/auth/registerUser",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"auth",
+						"registerUser"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "userRegister3",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Akshat\",\r\n    \"email\": \"akshay0128.be21@chitkara.edu.in\",\r\n    \"password\": \"123456\",\r\n    \"age\": 25\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/auth/registerUser",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"auth",
+						"registerUser"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "New Request",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": \"akshay0128.be21@chitkara.edu.in\",\r\n    \"password\": \"123456\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/auth/loginUser",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"auth",
+						"loginUser"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "updateProduct",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5000/products/67455b727c89d6023c7264ea",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"products",
+						"67455b727c89d6023c7264ea"
+					]
+				}
 			},
 			"response": []
 		}
