@@ -19,13 +19,22 @@ Backend: Node.js, Express.js
 Database: MongoDB, Mongoose
 Authentication: JWT, bcrypt
 Environment Management: dotenv
+Cloudinary: For image upload
 
 
 .  Create a .env File:
-
 PORT=5000
-MONGO_URI=mongodb://localhost:27017/E-CommerceAnalytics
+MONGO_URI=mongodb://localhost:27017/E-CommerceAnalystic
 JWT_SECRET=12345
+EMAIL_SERVICE_USER=akshit.kamboj.106@gmail.com
+EMAIL_SERVICE_PASS=hfgs sqsr myrx lepo
+ADMIN_EMAIL=Akshaykamboj586@gmail.com
+CLOUDINARY_CLOUD_NAME=dg2tkccxi
+CLOUDINARY_API_KEY=119136158835191
+CLOUDINARY_API_SECRET=UDwFfSpTSIrh0Kbij4UTxzpJPzE
+
+
+
 
 . Scripts to run :
 npm start: Start the server
@@ -51,9 +60,12 @@ GET('/:userId', authenticateUser, getAllOrders)
 Product Management Endpoints
 POST /products/add/authenticateAdmin - Add a new product to the inventory
 DELETE /products/delete/:id/authenticateAdmin - Remove a product by its ID
+PUt ('/update/:id', authenticateAdmin, upload.array('images', 4), updateProduct);
 GET('/', authenticateAdmin, getAllProducts)
 User Endpoints
 router.get('/', authenticateAdmin, getAllUsers);
+
+Starting File is : index.js 
 
 
 
