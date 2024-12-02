@@ -1,6 +1,7 @@
 const { sendEmail } = require('../services/emailService');
 const Order = require('../models/Order');
 const Product = require('../models/Product');
+const path = require('path');
 
 // Get sales by category
 exports.getSalesByCategory = async (req, res) => {
@@ -65,62 +66,34 @@ exports.getMonthlySales = async (req, res) => {
         res.status(500).json({ error: err.message });
     }
 };
-
-// Get low stock products and send email to adminds,
 exports.getLowStock = async (req, res) => {
     try {
-        const lowStockThreshold = 10; // Define low stock threshold
+        const lowStockThreshold = 10;
         const products = await Product.find({ stock: { $lt: lowStockThreshold } });
 
-        //Check if there are low-stock products
         if (products.length === 0) {
-            return res.status(200).json({
-                message: "No products are below the low-stock threshold.",
-                lowStockThreshold,
-                totalLowStock: 0,
-                products: [],
-            });
+            return res.status(200).json({ message: "No products are below the low-stock threshold." });
         }
 
-       // Prepare product details for the email
-        const productDetails = products
-            .map(product => `Product Name: ${product.name}, Stock: ${product.stock}`)
-            .join('\n');
-
-        const emailText = `
-        Dear Admin,
-
-        The following products are in low stock:
-
-        ${productDetails}
-
-        Please restock them soon.
-
-        Regards,
-        Inventory Management Team
-        `;
-
-        //Send email to admin
-        await sendEmail(process.env.ADMIN_EMAIL, 'Low Stock Alert', emailText);
-
-        //Simplify product details for the response
-        const simplifiedProducts = products.map(product => ({
-            name: product.name,
-            stock: product.stock,
-        })); 
+        // Send email to admin
+        const templatePath = path.join(__dirname, '../emails/lowStock.ejs');
+        await sendEmail(
+            process.env.ADMIN_EMAIL,
+            'Low Stock Alert',
+            templatePath,
+            { products }
+        );
 
         res.status(200).json({
-            message: "Low stock products retrieved and email sent to admin successfully.",
-            lowStockThreshold,
-            totalLowStock: simplifiedProducts.length,
-            products: simplifiedProducts,
+            message: "Low stock products retrieved and email sent to admin.",
+            totalLowStock: products.length,
+            products,
         });
     } catch (err) {
-        console.error('Error fetching low stock products:', err.message);
+        console.error('Error:', err.message);
         res.status(500).json({ error: err.message });
     }
 };
-
 
 
 

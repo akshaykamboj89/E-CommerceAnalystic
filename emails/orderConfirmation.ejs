@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Order Confirmation</title>
+</head>
+<body>
+    <h2>Order Confirmation</h2>
+    <p>Dear <%= user.name %>,</p>
+    <p>Your order has been successfully placed with the following details:</p>
+    <ul>
+        <% products.forEach(product => { %>
+            <li><strong><%= product.name %></strong> - Quantity: <%= product.quantity %></li>
+        <% }) %>
+    </ul>
+    <p>Thank you for shopping with us!</p>
+    <p>Regards,<br>E-Commerce Team</p>
+</body>
+</html>

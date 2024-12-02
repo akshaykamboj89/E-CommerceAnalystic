@@ -1,5 +1,7 @@
 const nodemailer = require('nodemailer');
-require('dotenv').config(); 
+const ejs = require('ejs');
+const path = require('path');
+require('dotenv').config();
 
 const transporter = nodemailer.createTransport({
     service: 'gmail',
@@ -9,13 +11,14 @@ const transporter = nodemailer.createTransport({
     },
 });
 
-const sendEmail = async (to, subject, text) => {
+const sendEmail = async (to, subject, templatePath, data) => {
     try {
+        const emailHtml = await ejs.renderFile(templatePath, data);
         await transporter.sendMail({
-            from: `"Your Project Name" <${process.env.EMAIL_SERVICE_USER}>`,
+            from: `"E-Commerce Team" <${process.env.EMAIL_SERVICE_USER}>`,
             to,
             subject,
-            text,
+            html: emailHtml,
         });
         console.log('Email sent successfully!');
     } catch (error) {

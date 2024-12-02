@@ -6,8 +6,4 @@ const router = express.Router();
 
 router.get('/', authenticateAdmin, getAllUsers);
 
-
-
-// router.get('/:userId/orders', authenticateAdmin, getUserOrders);
-
 module.exports = router;

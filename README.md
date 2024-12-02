@@ -14,7 +14,7 @@ The project is built using Node.js, Express, and MongoDB.
  using npm install
  
 
-. Technologies Used:
+. Technologies Used: 
 Backend: Node.js, Express.js
 Database: MongoDB, Mongoose
 Authentication: JWT, bcrypt
